@@ -54,23 +54,23 @@ export function GlassCard({
     >
       <div className="flex items-start justify-between">
         <div className="min-w-0 flex-1">
-          <p className="text-xs font-medium uppercase tracking-wide text-slate-500">{title}</p>
-          <p className="mt-2 text-xl font-semibold tabular-nums text-slate-900">
+          <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">{title}</p>
+          <p className="mt-2 text-xl font-semibold tabular-nums text-slate-900 dark:text-slate-100">
             {value}
           </p>
           {subtitle && (
-            <p className="mt-1 text-xs text-slate-500">{subtitle}</p>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{subtitle}</p>
           )}
           {trend && (
             <p
               className={cn(
                 "mt-2 text-sm font-medium",
-                trend.isPositive ? "text-emerald-600" : "text-slate-500"
+                trend.isPositive ? "text-emerald-600 dark:text-emerald-400" : "text-slate-500 dark:text-slate-400"
               )}
             >
               {trend.isPositive ? "↑" : "↓"} {Math.abs(trend.value)}%
               {trend.label && (
-                <span className="ml-1 text-slate-500 font-normal">
+                <span className="ml-1 font-normal text-slate-500 dark:text-slate-400">
                   {trend.label}
                 </span>
               )}
@@ -81,8 +81,8 @@ export function GlassCard({
           const Icon =
             typeof iconProp === "string" ? ICON_MAP[iconProp] : iconProp;
           return Icon ? (
-            <div className="ml-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-50 p-2">
-              <Icon className="h-5 w-5 text-slate-600" />
+            <div className="ml-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-50 p-2 dark:bg-slate-800">
+              <Icon className="h-5 w-5 text-slate-600 dark:text-slate-400" />
             </div>
           ) : null;
         })()}

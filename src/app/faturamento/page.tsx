@@ -2,13 +2,13 @@ export default function FaturamentoPage() {
   return (
     <div className="space-y-8">
       <div className="pb-2">
-        <h1 className="text-2xl font-semibold tracking-tight text-slate-900">Faturamento</h1>
-        <p className="mt-1.5 text-sm text-slate-500">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">Faturamento</h1>
+        <p className="mt-1.5 text-sm text-slate-500 dark:text-slate-400">
           Emissão de notas fiscais e documentos fiscais
         </p>
       </div>
       <div className="glass-card flex min-h-[400px] items-center justify-center rounded-xl p-8">
-        <p className="text-sm text-slate-500">Módulo em desenvolvimento</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Módulo em desenvolvimento</p>
       </div>
     </div>
   );

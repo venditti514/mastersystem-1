@@ -69,10 +69,10 @@ export default function FluxoDeCaixaPage() {
   return (
     <div className="space-y-8">
       <div className="pb-2">
-        <h1 className="text-2xl font-semibold tracking-tight text-slate-900">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
           Fluxo de Caixa · Multi-moeda
         </h1>
-        <p className="mt-1.5 text-sm text-slate-500">
+        <p className="mt-1.5 text-sm text-slate-500 dark:text-slate-400">
           Entradas, saídas e projeção convertidos em BRL
         </p>
       </div>
@@ -84,8 +84,8 @@ export default function FluxoDeCaixaPage() {
             onClick={() => setPeriodo(p)}
             className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
               periodo === p
-                ? "border border-slate-300 bg-slate-100 text-slate-900"
-                : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+                ? "border border-slate-300 bg-slate-100 text-slate-900 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+                : "text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
             }`}
           >
             {p === "mes" ? "Mês atual" : p === "30" ? "30 dias" : "60 dias"}
@@ -95,26 +95,26 @@ export default function FluxoDeCaixaPage() {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="glass-card rounded-xl p-6">
-          <p className="text-xs font-medium text-slate-500">Total entradas</p>
-          <p className="mt-1 text-xl font-semibold tabular-nums text-slate-900">
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Total entradas</p>
+          <p className="mt-1 text-xl font-semibold tabular-nums text-slate-900 dark:text-slate-100">
             {formatMoeda(entradas, "BRL")}
           </p>
         </div>
         <div className="glass-card rounded-xl p-6">
-          <p className="text-xs font-medium text-slate-500">Total saídas</p>
-          <p className="mt-1 text-xl font-semibold tabular-nums text-rose-600">
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Total saídas</p>
+          <p className="mt-1 text-xl font-semibold tabular-nums text-rose-600 dark:text-rose-400">
             {formatMoeda(saidas, "BRL")}
           </p>
         </div>
         <div className="glass-card rounded-xl p-6">
-          <p className="text-xs font-medium text-slate-500">Saldo líquido</p>
-          <p className="mt-1 text-xl font-semibold tabular-nums text-slate-900">
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Saldo líquido</p>
+          <p className="mt-1 text-xl font-semibold tabular-nums text-slate-900 dark:text-slate-100">
             {formatMoeda(saldo, "BRL")}
           </p>
         </div>
         <div className="glass-card rounded-xl p-6">
-          <p className="text-xs font-medium text-slate-500">Previsão (a receber − a pagar)</p>
-          <p className="mt-1 text-xl font-semibold tabular-nums text-slate-900">
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Previsão (a receber − a pagar)</p>
+          <p className="mt-1 text-xl font-semibold tabular-nums text-slate-900 dark:text-slate-100">
             {formatMoeda(aReceber - aPagar, "BRL")}
           </p>
         </div>
@@ -122,7 +122,7 @@ export default function FluxoDeCaixaPage() {
 
       {chartData.length > 0 && (
         <div className="glass-card rounded-xl p-6">
-          <h3 className="font-semibold text-slate-900">
+          <h3 className="font-semibold text-slate-900 dark:text-slate-100">
             Fluxo por categoria
           </h3>
           <div className="mt-4 h-64">
@@ -163,38 +163,38 @@ export default function FluxoDeCaixaPage() {
       )}
 
       <div className="glass-card overflow-hidden rounded-xl">
-        <h3 className="border-b border-slate-200 px-6 py-4 font-semibold text-slate-900">
+        <h3 className="border-b border-slate-200 px-6 py-4 font-semibold text-slate-900 dark:border-slate-600 dark:text-slate-100">
           Lançamentos
         </h3>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-slate-200">
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+              <tr className="border-b border-slate-200 dark:border-slate-600">
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Data
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Descrição
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Categoria
                 </th>
-                <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
+                <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Valor
                 </th>
               </tr>
             </thead>
             <tbody>
               {lancamentos.map((l) => (
-                <tr key={l.id} className="border-b border-slate-100">
-                  <td className="px-6 py-4 text-slate-900">
+                <tr key={l.id} className="border-b border-slate-100 dark:border-slate-700">
+                  <td className="px-6 py-4 text-slate-900 dark:text-slate-100">
                     {formatData(l.data)}
                   </td>
-                  <td className="px-6 py-4 text-slate-900">{l.descricao}</td>
-                  <td className="px-6 py-4 text-slate-500">{l.categoria}</td>
+                  <td className="px-6 py-4 text-slate-900 dark:text-slate-100">{l.descricao}</td>
+                  <td className="px-6 py-4 text-slate-500 dark:text-slate-400">{l.categoria}</td>
                   <td
                     className={`px-6 py-4 text-right font-medium tabular-nums ${
-                      l.tipo === "entrada" ? "text-emerald-600" : "text-slate-500"
+                      l.tipo === "entrada" ? "text-emerald-600 dark:text-emerald-400" : "text-slate-500 dark:text-slate-400"
                     }`}
                   >
                     {l.tipo === "entrada" ? "+" : "−"}{" "}

@@ -8,7 +8,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
-    <div className="min-h-screen bg-transparent text-slate-900">
+    <div className="min-h-screen bg-transparent text-slate-900 dark:bg-slate-950 dark:text-slate-100">
       <Sidebar collapsed={sidebarCollapsed} onCollapsedChange={setSidebarCollapsed} />
       <div
         className="transition-all duration-300"

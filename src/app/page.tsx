@@ -1,125 +1,71 @@
 "use client";
 
-import { GlassCard } from "@/modules/dashboard/glass-card";
-import { ModuleLinkCard } from "@/modules/dashboard/module-link-card";
-import { useFinanceStore } from "@/lib/store";
-import { formatMoeda } from "@/lib/format";
+import Link from "next/link";
+import { DollarSign, ClipboardList, ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-export default function DashboardPage() {
-  const { contasPagar, contasReceber, operacoesComex, ptaxUSD } =
-    useFinanceStore();
-
-  const aPagar = contasPagar.filter((c) =>
-    ["pendente", "vencido"].includes(c.status)
-  );
-  const aReceber = contasReceber.filter((c) =>
-    ["a_receber", "em_atraso"].includes(c.status)
-  );
-  const totalAPagar = aPagar.reduce(
-    (s, c) => s + (c.moeda === "BRL" ? c.valor : c.valor * ptaxUSD),
-    0
-  );
-  const totalAReceber = aReceber.reduce(
-    (s, c) => s + (c.moeda === "BRL" ? c.valor : c.valor * ptaxUSD),
-    0
-  );
-  const emOperacao = operacoesComex.filter((o) => o.status === "em_andamento");
-  const valorOperacoes = emOperacao.reduce((s, o) => s + o.valorBRL, 0);
-
+export default function HomePage() {
   return (
     <div className="space-y-10">
       <div className="pb-2">
-        <h1 className="text-2xl font-semibold tracking-tight text-slate-900">
-          Financeiro · Comércio Exterior
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+          MasterPort Comex
         </h1>
-        <p className="mt-1.5 text-sm text-slate-500">
-          Controle de operações de importação/exportação e fluxo de caixa
+        <p className="mt-1.5 text-sm text-slate-500 dark:text-slate-400">
+          Escolha a área para acessar
         </p>
       </div>
 
       <section>
-        <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-slate-400">
-          Indicadores financeiros
+        <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+          Acesso rápido
         </h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <GlassCard
-            title="PTAX USD (compra)"
-            value={formatMoeda(ptaxUSD, "BRL")}
-            subtitle="Cotação vigente"
-            icon="DollarSign"
-          />
-          <GlassCard
-            title="Operações em andamento"
-            value={formatMoeda(valorOperacoes, "BRL")}
-            subtitle={`${emOperacao.length} operações ativas`}
-            icon="Ship"
-          />
-          <GlassCard
-            title="Contas a receber"
-            value={formatMoeda(totalAReceber, "BRL")}
-            subtitle="Convertido em BRL"
-            icon="ArrowUpCircle"
-            trend={{
-              value: aReceber.filter((c) => c.status === "em_atraso").length,
-              isPositive: false,
-              label: "em atraso",
-            }}
-          />
-          <GlassCard
-            title="Contas a pagar"
-            value={formatMoeda(totalAPagar, "BRL")}
-            subtitle="Convertido em BRL"
-            icon="ArrowDownCircle"
-            trend={{
-              value: aPagar.filter((c) => c.status === "vencido").length,
-              isPositive: false,
-              label: "vencidas",
-            }}
-          />
-        </div>
-      </section>
+        <div className="grid gap-6 sm:grid-cols-2">
+          <Link
+            href="/financeiro"
+            className={cn(
+              "glass-card group flex items-center justify-between gap-6 rounded-xl p-6 transition-all",
+              "hover:border-slate-300 hover:shadow-md dark:hover:border-slate-600"
+            )}
+          >
+            <div className="flex min-w-0 flex-1 items-center gap-5">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-slate-100 transition-colors group-hover:bg-slate-200 dark:bg-slate-800 dark:group-hover:bg-slate-700">
+                <DollarSign className="h-7 w-7 text-slate-700 dark:text-slate-300" />
+              </div>
+              <div className="min-w-0">
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+                  Financeiro
+                </h3>
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                  Contas a pagar e receber, fluxo de caixa, câmbio e conciliação
+                </p>
+              </div>
+            </div>
+            <ChevronRight className="h-6 w-6 shrink-0 text-slate-400 transition-all group-hover:translate-x-0.5 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300" />
+          </Link>
 
-      <section>
-        <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-slate-400">
-          Módulos
-        </h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <ModuleLinkCard
-            href="/operacoes-comex"
-            title="Operações Comex"
-            description="Importação, exportação e acompanhamento"
-            icon="Ship"
-          />
-          <ModuleLinkCard
-            href="/cambio"
-            title="Câmbio / PTAX"
-            description="Cotações e hedge cambial"
-            icon="DollarSign"
-          />
-          <ModuleLinkCard
-            href="/contas-a-pagar"
-            title="Contas a Pagar"
-            description="Fornecedores, II, frete e despesas"
-            icon="ArrowDownCircle"
-          />
-          <ModuleLinkCard
-            href="/contas-a-receber"
-            title="Contas a Receber"
-            description="Exportação e vendas nacionais"
-            icon="ArrowUpCircle"
-          />
-          <ModuleLinkCard
-            href="/fluxo-de-caixa"
-            title="Fluxo de Caixa"
-            description="Multi-moeda e projeção"
-            icon="TrendingUp"
-          />
-          <ModuleLinkCard
-            href="/conciliacao-bancaria"
-            title="Conciliação Bancária"
-            description="Extrato e conferência"
-            icon="Landmark"
-          />
+          <Link
+            href="/operacional"
+            className={cn(
+              "glass-card group flex items-center justify-between gap-6 rounded-xl p-6 transition-all",
+              "hover:border-slate-300 hover:shadow-md dark:hover:border-slate-600"
+            )}
+          >
+            <div className="flex min-w-0 flex-1 items-center gap-5">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-slate-100 transition-colors group-hover:bg-slate-200 dark:bg-slate-800 dark:group-hover:bg-slate-700">
+                <ClipboardList className="h-7 w-7 text-slate-700 dark:text-slate-300" />
+              </div>
+              <div className="min-w-0">
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+                  Operacional
+                </h3>
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                  Processos, atividades, prazos e dashboard operacional
+                </p>
+              </div>
+            </div>
+            <ChevronRight className="h-6 w-6 shrink-0 text-slate-400 transition-all group-hover:translate-x-0.5 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300" />
+          </Link>
         </div>
       </section>
     </div>
